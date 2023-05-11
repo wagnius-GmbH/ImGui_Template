@@ -1,0 +1,20 @@
+{
+  "name": "ImGuiTemplate",
+  "version": "1.0",
+  "dependencies": [
+    {
+      "name": "imgui",
+      "features": [ "glfw-binding", "opengl3-binding" ]
+    },
+    "glfw3",
+    "glad",
+    "eigen3",
+    "opencv",
+    "opengl",
+    "stb",
+    "freeglut",
+    "ffmpeg",
+    "implot",
+    "pthread"
+  ]
+}
