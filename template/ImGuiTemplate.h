@@ -5,6 +5,8 @@
 
 #include <iostream>
 
+#pragma warning(disable : 4996)
+
 // Verweisen Sie hier auf zusätzliche Header, die Ihr Programm erfordert
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include <imgui.h>
