@@ -1,6 +1,7 @@
 {
-  "name": "ImGuiTemplate",
-  "version": "1.0",
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "template",
+  "version": "0.0.1",
   "dependencies": [
     {
       "name": "imgui",
@@ -8,13 +9,6 @@
     },
     "glfw3",
     "glad",
-    "eigen3",
-    "opencv",
-    "opengl",
-    "stb",
-    "freeglut",
-    "ffmpeg",
-    "implot",
-    "pthread"
+    "implot"
   ]
 }
