@@ -5,6 +5,9 @@
 
 #include <iostream>
 
+// Common name space for the project
+using namespace std;
+
 // ImGui and its dependencies
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include <imgui.h>
@@ -14,6 +17,19 @@
 // openGL
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+// implot
+#include <implot.h>
+
+///////////////////////////////////////////
+//  Enum`s
+///////////////////////////////////////////
+
+enum resolution
+{
+    windowWidth = 1920,
+    windowHeight = 1080
+};
 
 
 // Visual Studio warnings

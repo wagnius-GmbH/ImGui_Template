@@ -5,6 +5,7 @@ public:
 	void Init(GLFWwindow* window, const char* glsl_version) {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
+
 		// Setup Platform/Renderer bindings
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init(glsl_version);

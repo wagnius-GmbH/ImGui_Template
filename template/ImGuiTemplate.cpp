@@ -14,17 +14,18 @@ int main()
 {
 	// Setup window
 	if (!glfwInit())
+	{
+		cout << "errot in: glfwInit";
 		return 1;
+	}
 
 	// GL 3.0 + GLSL 130
 	const char* glsl_version = "#version 130";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 
 	// Create window with graphics context
-	GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui - Example", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Dear ImGui - Example", NULL, NULL);
 	if (window == NULL)
 		return 1;
 	glfwMakeContextCurrent(window);
@@ -41,6 +42,8 @@ int main()
 	UseImGui myimgui;
 	myimgui.Init(window, glsl_version);
 	
+
+	cout << "ImGui start running";
 
 	// ImGui update
 	while (!glfwWindowShouldClose(window)) {
