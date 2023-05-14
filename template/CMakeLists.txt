@@ -3,7 +3,7 @@
 #
 
 # Fügen Sie der ausführbaren Datei dieses Projekts eine Quelle hinzu.
-add_executable (template "ImGuiTemplate.cpp" "ImGuiTemplate.h")
+add_executable (template "ImGuiTemplate.cpp"  "header.h" "ImGui.cpp")
 
 # TODO: Fügen Sie bei Bedarf Tests hinzu, und installieren Sie Ziele.
 # ImGui dependecies 
