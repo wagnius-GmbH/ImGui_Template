@@ -18,11 +18,11 @@ int main()
 		cout << "errot in: glfwInit";
 		return 1;
 	}
-
+	
 	// GL 3.0 + GLSL 130
 	const char* glsl_version = "#version 130";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
 	// Create window with graphics context
 	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Dear ImGui - Example", NULL, NULL);
@@ -41,8 +41,6 @@ int main()
 	// Create GUI object
 	UseImGui myimgui;
 	myimgui.Init(window, glsl_version);
-	
-
 	cout << "ImGui start running";
 
 	// ImGui update
