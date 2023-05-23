@@ -1,7 +1,11 @@
 #include "header.h"
 
+/// <summary>
+/// ImGui Window creation
+/// </summary>
 class UseImGui {
 public:
+
 	void Init(GLFWwindow* window, const char* glsl_version) {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -17,6 +21,7 @@ public:
 		ImGui_ImplOpenGL3_Init(glsl_version);
 		ImGui::StyleColorsDark();
 	}
+
 	void NewFrame() {
 		// feed inputs to dear imgui, start new frame
 		ImGui_ImplOpenGL3_NewFrame();
@@ -36,6 +41,7 @@ public:
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
+
 	void Shutdown() {
 		// Cleanup
 		ImGui_ImplOpenGL3_Shutdown();

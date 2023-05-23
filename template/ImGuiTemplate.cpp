@@ -3,13 +3,12 @@
 // If you are new to Dear ImGui, read documentation from the docs/ folder + read the top of imgui.cpp.
 // Read online: https://github.com/ocornut/imgui/tree/master/docs
 
-#include "ImGui.cpp"
+#include "ImGui.hpp"
 
 /// <summary>
-/// Testing ImGui 
-/// show Pictures and web cam video in ImGui
+/// ImGui Template 
 /// </summary>
-/// <returns></returns>
+/// <returns>int</returns>
 int main()
 {
 	// Setup window
@@ -19,10 +18,10 @@ int main()
 		return 1;
 	}
 	
-	// GL 3.0 + GLSL 130
-	const char* glsl_version = "#version 130";
+	// GL 3.3 + GLSL 130
+	const char* glsl_version = "#version 150";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
 	// Create window with graphics context
 	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Dear ImGui - Example", NULL, NULL);
@@ -41,7 +40,7 @@ int main()
 	// Create GUI object
 	UseImGui myimgui;
 	myimgui.Init(window, glsl_version);
-	cout << "ImGui start running";
+	cout << "ImGui running" << endl;
 
 	// ImGui update
 	while (!glfwWindowShouldClose(window)) {
@@ -53,7 +52,7 @@ int main()
 		glfwSwapBuffers(window);
 	}
 	myimgui.Shutdown();
-
+	cout << "Shutdown sucessfull";
 	return 0;
 }
 
