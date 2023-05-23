@@ -1,3 +1,4 @@
 ## CMakeTemplate
 
-This is a Template project to use ImGui 
+Template project to use ImGui and ImPlot with vcpkg
+

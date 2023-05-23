@@ -5,6 +5,7 @@ public:
 	void Init(GLFWwindow* window, const char* glsl_version) {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
+		ImPlot::CreateContext();
 
 		// Include controls
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -26,6 +27,8 @@ public:
 		// CustomImGui Hello, world! 
 		ImGui::Begin("CustomImGui Hello, world!");              // Create a window called "Hello, world!" and append into it.
 		ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+		ImPlot::ShowDemoWindow();
+
 		ImGui::End();
 	}
 	void Render() {
@@ -37,6 +40,7 @@ public:
 		// Cleanup
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
+		ImPlot::DestroyContext();
 		ImGui::DestroyContext();
 	}
 };
