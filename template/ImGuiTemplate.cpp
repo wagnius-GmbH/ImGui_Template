@@ -18,7 +18,7 @@ int main()
 		return 1;
 	}
 	
-	// GL 3.3 + GLSL 130
+	// GL 3.3 + GLSL 150
 	const char* glsl_version = "#version 150";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
