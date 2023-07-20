@@ -9,6 +9,7 @@
     },
     "glfw3",
     "glad",
-    "implot"
+    "implot",
+    "eigen3"
   ]
 }

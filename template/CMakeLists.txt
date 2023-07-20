@@ -3,7 +3,7 @@
 #
 
 # Fügen Sie der ausführbaren Datei dieses Projekts eine Quelle hinzu.
-add_executable (${PROJECT_NAME} "ImGuiTemplate.cpp"  "header.h" "ImGui.hpp")
+add_executable (${PROJECT_NAME} "ImGuiTemplate.cpp"  "header.h" "ImGui.hpp" )
 
 # TODO: Fügen Sie bei Bedarf Tests hinzu, und installieren Sie Ziele.
 # ImGui dependecies 
@@ -21,3 +21,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE implot::implot)
 
 find_package(OpenGL REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL)
+
+find_package(Eigen3 CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE Eigen3::Eigen)
