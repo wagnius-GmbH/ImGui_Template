@@ -37,7 +37,7 @@ int w = 1000;
 int h = 1000;
 float center_x = (float)w / 2.0f;
 float center_y = (float)h / 2.0f;
-int starsN = 200;
+int starsN = 100;
 
 //---------------------------------------------------------------
 float randomInit()
@@ -166,7 +166,7 @@ void test()
 		window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
 
 		// starfield simumlation calculation
-		ImGui::Begin("##Simulation", nullptr, window_flags);
+		ImGui::Begin("Simulation", nullptr, window_flags);
 		ImDrawList* draw_list = ImGui::GetWindowDrawList();
 		for (auto& s : stars)
 		{
@@ -179,7 +179,7 @@ void test()
 			s.rotate(1.0f);
 		}
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		std::this_thread::sleep_for(std::chrono::milliseconds(20));
 
 		ImGui::End();
 
