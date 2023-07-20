@@ -50,7 +50,6 @@ struct Star
 
 	Star()
 	{
-
 		this->x = randomInit();
 		this->y = randomInit();
 		this->z = 0.0f;
@@ -59,7 +58,6 @@ struct Star
 
 	void move()
 	{
-
 		this->z = this->z + 1.0f;
 		if (this->y > h || this->x > w || this->y < 0 || this->x < 0)
 		{
@@ -68,7 +66,6 @@ struct Star
 			this->z = 0.0f;
 			this->r = 1.0f;
 		}
-
 		else
 		{
 			this->x = (this->x - (float)w / 2.0f) * 1.05f + (float)w / 2.0f;
@@ -79,7 +76,6 @@ struct Star
 
 	void rotate(float ang)
 	{
-
 		Eigen::Matrix<float, 3, 1> C;
 		C << center_x, center_y, 0.0f;
 
@@ -100,8 +96,10 @@ struct Star
 void starfield()
 {
 	// ImGui
-	std::string title = "Starfield simulation";
-	GLFWwindow* window = initImgui(w, h, title);
+	const char* title = "Starfield simulation";
+	UseImGui starfieldGui(title);
+
+	//GLFWwindow* window = initImgui(w, h, title);
 
 	// colors
 	ImVec4 clear_color = ImVec4(0.0f  , 0.0f  , 0.0f  , 1.00f);
@@ -114,29 +112,20 @@ void starfield()
 		stars.emplace_back(Star());
 	}
 
+	// starfield simumlation settings ImGui
+	ImGuiWindowFlags window_flags = 0;
+	ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_FirstUseEver);
+	ImGui::SetNextWindowSize(ImVec2((float)w, (float)h), ImGuiCond_FirstUseEver);
+	window_flags |= ImGuiWindowFlags_NoMove;
+	window_flags |= ImGuiWindowFlags_NoResize;
+	window_flags |= ImGuiWindowFlags_NoCollapse;
+	window_flags |= ImGuiWindowFlags_NoBackground;
+	window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
+
 	// Simulate and show with ImGui
-	while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(starfieldGui.window))
 	{
-		glfwPollEvents();
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		// New Frame
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
-		// starfield simumlation settings ImGui
-		ImGuiWindowFlags window_flags = 0;
-		ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_FirstUseEver);
-		ImGui::SetNextWindowSize(ImVec2((float)w, (float)h), ImGuiCond_FirstUseEver);
-		window_flags |= ImGuiWindowFlags_NoMove;
-		window_flags |= ImGuiWindowFlags_NoResize;
-		window_flags |= ImGuiWindowFlags_NoCollapse;
-		window_flags |= ImGuiWindowFlags_NoBackground;
-		window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
-
 		// starfield simumlation calculation
-		ImGui::Begin("Simulation", nullptr, window_flags);
 		ImDrawList* draw_list = ImGui::GetWindowDrawList();
 		for (auto& s : stars)
 		{
@@ -149,16 +138,9 @@ void starfield()
 		}
 		// Simulation speed
 		std::this_thread::sleep_for(std::chrono::milliseconds(20));
-		// End off Frame
-		ImGui::End();
-
-		// Rendering the Frame
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-		// Swap to newly rendered frame
-		glfwSwapBuffers(window);
+		
+		starfieldGui.Update();
 	}
-	termImgui(window);
 }
 
 
@@ -168,47 +150,16 @@ void starfield()
 /// <returns>int</returns>
 int main()
 {
+
 	starfield();
 
-	// Setup window
-	if (!glfwInit())
-	{
-		cout << "errot in: glfwInit";
-		return 1;
-	}
-
-	// GL 3.3 + GLSL 150
-	const char* glsl_version = "#version 150";
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-
-	// Create window with graphics context
-	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Dear ImGui - Example", NULL, NULL);
-	if (window == NULL)
-		return 1;
-	glfwMakeContextCurrent(window);
-	glfwSwapInterval(1); // Enable vsync
-
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))  // tie window context to glad's opengl funcs
-		throw("Unable to context to OpenGL");
-
-	int screen_width, screen_height;
-	glfwGetFramebufferSize(window, &screen_width, &screen_height);
-	glViewport(0, 0, screen_width, screen_height);
-
-	// Create GUI object
+	// Create ImGui object
 	UseImGui myimgui;
-	myimgui.Init(window, glsl_version);
 	cout << "ImGui running" << endl;
 
 	// ImGui update
-	while (!glfwWindowShouldClose(window)) {
-		glfwPollEvents();
-		glClear(GL_COLOR_BUFFER_BIT);
-		myimgui.NewFrame();
+	while (!glfwWindowShouldClose(myimgui.window)) {
 		myimgui.Update();
-		myimgui.Render();
-		glfwSwapBuffers(window);
 	}
 	myimgui.Shutdown();
 	cout << "Shutdown sucessfull";
