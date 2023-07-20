@@ -21,6 +21,7 @@ using namespace std;
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
+
 // openGL
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -46,8 +47,8 @@ enum resolution
 const double M_PI = 3.14159265359;
 const int w = 1000;
 const int h = 1000;
-const float center_x = (float)w / 2.0f;
-const float center_y = (float)h / 2.0f;
+float center_x = (float)w / 2.0f;
+float center_y = (float)h / 2.0f;
 
 /*
 // Suppress Visual Studio warnings

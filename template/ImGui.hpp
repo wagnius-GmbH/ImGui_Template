@@ -15,7 +15,6 @@ static void glfw_error_callback(int error, const char* description) {
 class UseImGui 
 {
 	const char* glsl_version = "#version 150";
-	const char* title = "Title";
 
 	// colors
 	ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.0f, 1.00f);
@@ -32,7 +31,7 @@ public:
 	GLFWwindow* window;
 
 	/// <summary>
-	/// 
+	/// init GLFWwindow* and set options
 	/// </summary>
 	/// <returns></returns>
 	UseImGui(const char* title = "Example")
@@ -84,6 +83,7 @@ public:
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init(glsl_version);
 		ImGui::StyleColorsDark();
+
 	}
 
 	void NewFrame() {

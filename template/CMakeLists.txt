@@ -24,3 +24,13 @@ target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL)
 
 find_package(Eigen3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE Eigen3::Eigen)
+
+
+# Install imgui.ini 
+message("************************************")
+message("CMAKE_CURRENT_BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}")
+message("************************************\n")
+message("************************************")
+message("Copy imgui.ini to ${CMAKE_CURRENT_BINARY_DIR}/Imgui.ini")
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/config/imgui.ini"  DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+message("************************************\n")

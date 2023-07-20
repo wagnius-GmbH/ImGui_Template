@@ -22,6 +22,8 @@ int main()
 	}
 	starfieldGui.Shutdown();
 
+	/*
+
 	///////////////////////////////////////////////
 	// Create ImGui object
 	UseImGui myimgui;
@@ -32,6 +34,8 @@ int main()
 	}
 	myimgui.Shutdown();
 
+
+	*/
 	///////////////////////////////////////////////
 	cout << "Shutdown sucessfull";
 	return 0;
