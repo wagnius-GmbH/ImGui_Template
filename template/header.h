@@ -38,6 +38,17 @@ enum resolution
     windowHeight = 1080
 };
 
+
+///////////////////////////////////////////
+//  const`s
+///////////////////////////////////////////
+
+const double M_PI = 3.14159265359;
+const int w = 1000;
+const int h = 1000;
+const float center_x = (float)w / 2.0f;
+const float center_y = (float)h / 2.0f;
+
 /*
 // Suppress Visual Studio warnings
 #ifdef _MSC_VER
@@ -48,17 +59,13 @@ enum resolution
 */
 
 
-const double M_PI = 3.14159265359;
+///////////////////////////////////////////
+//  functions
+///////////////////////////////////////////
 
-//---------------------------------------------------------------
-
-int w = 1000;
-int h = 1000;
-float center_x = (float)w / 2.0f;
-float center_y = (float)h / 2.0f;
-
-
-//---------------------------------------------------------------
+/// <summary>
+/// random number 
+/// </summary>
 float randomInit()
 {
 	std::random_device device;
@@ -67,7 +74,9 @@ float randomInit()
 	return dist(engine);
 }
 
-//---------------------------------------------------------------
+/// <summary>
+/// create 3 by 3 Matrix for rotation
+/// </summary>
 Eigen::Matrix<float, 3, 3> RotZ(float ang)
 {
 
@@ -81,8 +90,9 @@ Eigen::Matrix<float, 3, 3> RotZ(float ang)
 	return Rz;
 }
 
-//---------------------------------------------------------------
-
+/// <summary>
+/// star structure
+/// </summary>
 struct Star
 {
 	float x;
