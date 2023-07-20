@@ -18,7 +18,7 @@ int main()
 	// Simulate and show with ImGui
 	while (!glfwWindowShouldClose(starfieldGui.window))
 	{
-		starfieldGui.starfield();
+		starfieldGui.starfield(0);
 	}
 	starfieldGui.Shutdown();
 

@@ -148,11 +148,33 @@ public:
 		// clear content
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		int frameRate = ImGui::GetIO().Framerate;
+
 		/////////////////////////////////
 		// Frame
 		NewFrame();
 		ImGui::Begin("Simulation", nullptr, window_flags);
+		// Create the menu bar
+		if (ImGui::BeginMainMenuBar()) {
+			// Add a menu
+			if (ImGui::BeginMenu("File")) {
+				// Add menu items
+				if (ImGui::MenuItem("Open")) {
+					// Handle "Open" action
+				}
+				if (ImGui::MenuItem("Save")) {
+					// Handle "Save" action
+				}
+				if (ImGui::MenuItem("Exit")) {
+					// Handle "Exit" action
+				}
 
+				ImGui::EndMenu();
+			}
+
+			// You can add more menus here if needed
+			ImGui::EndMainMenuBar();
+		}
 		// starfield simumlation calculation
 		ImDrawList* draw_list = ImGui::GetWindowDrawList();
 		for (auto& s : stars)
