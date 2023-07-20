@@ -71,8 +71,8 @@ struct Star
 
 		else
 		{
-			this->x = (this->x - (float)w / 2.0f) * 1.05 + (float)w / 2.0f;
-			this->y = (this->y - (float)h / 2.0f) * 1.05 + (float)h / 2.0f;
+			this->x = (this->x - (float)w / 2.0f) * 1.05f + (float)w / 2.0f;
+			this->y = (this->y - (float)h / 2.0f) * 1.05f + (float)h / 2.0f;
 			this->r = this->r + 0.1f;
 		}
 	}
