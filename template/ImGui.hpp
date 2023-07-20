@@ -14,9 +14,15 @@ static void glfw_error_callback(int error, const char* description) {
 /// </summary>
 class UseImGui 
 {
-
-	// GL 3.3 + GLSL 150
 	const char* glsl_version = "#version 150";
+	const char* title = "Title";
+
+	// colors
+	ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.0f, 1.00f);
+	ImVec4 dot_color = ImVec4(255.0f, 255.0f, 255.0f, 1.00f);
+
+	// stars for simulations
+	std::vector<Star> stars;
 
 public:
 
@@ -94,7 +100,6 @@ public:
 		ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
 		ImPlot::ShowDemoWindow();
 		ImGui::End(); // end of content
-
 		Render();
 	}
 	void Render() {
@@ -110,66 +115,65 @@ public:
 		ImGui_ImplGlfw_Shutdown();
 		ImPlot::DestroyContext();
 		ImGui::DestroyContext();
+		glfwDestroyWindow(window);
+		glfwTerminate();
 	}
+
+	void initStarfield(int starsN = 200)
+	{
+		
+		for (int ii = 0; ii < starsN; ii++)
+		{
+			stars.emplace_back(Star());
+		}
+		// starfield simumlation settings ImGui
+		ImGuiWindowFlags window_flags = 0;
+		ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowSize(ImVec2((float)w, (float)h), ImGuiCond_FirstUseEver);
+		window_flags |= ImGuiWindowFlags_NoMove;
+		window_flags |= ImGuiWindowFlags_NoResize;
+		window_flags |= ImGuiWindowFlags_NoCollapse;
+		window_flags |= ImGuiWindowFlags_NoBackground;
+		window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
+
+	}
+
+	void starfield(int delay = 20)
+	{
+
+		glfwPollEvents();
+		// clear content
+		glClear(GL_COLOR_BUFFER_BIT);
+		NewFrame();
+
+
+		ImGui::Begin("##starfield");
+
+		// starfield simumlation calculation
+		ImDrawList* draw_list = ImGui::GetWindowDrawList();
+		for (auto& s : stars)
+		{
+			s.move();
+			draw_list->AddCircleFilled({ s.x, s.y }, s.r, ImColor(dot_color));
+		}
+		for (auto& s : stars)
+		{
+			s.rotate(1.0f);
+		}
+		// Simulation speed
+		std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+
+		ImGui::End(); // end of content
+		Render();
+		int display_w, display_h;
+		glfwGetFramebufferSize(window, &display_w, &display_h);
+		glViewport(0, 0, display_w, display_h);
+		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+		glClear(GL_COLOR_BUFFER_BIT);
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		glfwSwapBuffers(window);
+	};
 };
 
 
-
-
-
-GLFWwindow* initImgui(int win_w = 1280, int win_h = 720, std::string win_title = "LSystem") {
-
-    // Setup window
-    glfwSetErrorCallback(glfw_error_callback);
-    if (!glfwInit())
-        cout << "errpr om glgwInit()";
-
-    // Decide GL+GLSL versions
-    const char* glsl_version = "#version 150";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
-
-	// Create window with graphics context
-	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Dear ImGui - Example", NULL, NULL);
-
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // Enable vsync
-
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))  // tie window context to glad's opengl funcs
-		throw("Unable to context to OpenGL");
-
-	int screen_width, screen_height;
-	glfwGetFramebufferSize(window, &screen_width, &screen_height);
-	glViewport(0, 0, screen_width, screen_height);
-
-    // Setup Dear ImGui context
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-    // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsClassic();
-
-    // Setup Platform/Renderer backends
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
-
-	return window;
-
-}
-
-void termImgui(GLFWwindow* window) {
-    // Cleanup
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-
-    glfwDestroyWindow(window);
-    glfwTerminate();
-
-}
