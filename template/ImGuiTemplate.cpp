@@ -120,31 +120,24 @@ struct Star
 
 //---------------------------------------------------------------
 
-void test()
+void starfield()
 {
+	// ImGui
 	std::string title = "Starfield simulation";
 	GLFWwindow* window = initImgui(w, h, title);
 
-	bool flag = true;
-
-	bool show_demo_window = true;
-	bool show_another_window = false;
+	// colors
 	ImVec4 clear_color = ImVec4(0.0f  , 0.0f  , 0.0f  , 1.00f);
-	ImVec4 line_color  = ImVec4(255.0f, 255.0f, 255.0f, 1.00f);
-	ImVec4 blue_color  = ImVec4(0.0f  , 0.0f  , 170.0f, 1.00f);
-	ImVec4 pink_color  = ImVec4(179.0f, 12.0f , 130.0f, 1.00f);
-	ImVec4 green_color = ImVec4(60.0f , 160.0f, 90.0f , 1.00f);
 	ImVec4 dot_color   = ImVec4(255.0f, 255.0f, 255.0f, 1.00f);
 
+	// stars for simulations
 	std::vector<Star> stars;
-
-	// Star *star = new Star[starsN];
-
 	for (int ii = 0; ii < starsN; ii++)
 	{
 		stars.emplace_back(Star());
 	}
 
+	// Simulate and show with ImGui
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
@@ -178,14 +171,16 @@ void test()
 		{
 			s.rotate(1.0f);
 		}
-
+		// Simulation speed
 		std::this_thread::sleep_for(std::chrono::milliseconds(20));
 
+		// End off Frame
 		ImGui::End();
 
-		// Rendering
+		// Rendering the Frame
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		// Swap to newly rendered frame
 		glfwSwapBuffers(window);
 	}
 
@@ -200,7 +195,7 @@ void test()
 /// <returns>int</returns>
 int main()
 {
-	test();
+	starfield();
 
 	// Setup window
 	if (!glfwInit())
