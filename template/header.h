@@ -4,6 +4,22 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
+//#include <iostream>
+//#include <array>
+//#include <vector>
+//#include <list>
+//#include <map>
+//#include <stack>
+#include <tuple>
+#include <vector>
+//#include <math.h>
+#include <random>
+//#include <algorithm>
+#include <thread>
+//#include <chrono>
+#include <Eigen/Dense>
+
 
 // Common name space for the project
 using namespace std;

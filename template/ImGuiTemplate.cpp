@@ -5,30 +5,6 @@
 
 #include "ImGui.hpp"
 
-
-#pragma once
-
-#include <fstream>
-#include <iostream>
-
-
-#include <array>
-#include <vector>
-#include <list>
-#include <map>
-#include <stack>
-
-
-#include <tuple>
-#include <vector>
-#include <math.h>
-#include <random>
-#include <algorithm>
-#include <thread>
-#include <chrono>
-#include <Eigen/Dense>
-
-
 const double M_PI = 3.14159265359;
 
 //---------------------------------------------------------------
@@ -118,6 +94,7 @@ struct Star
 	}
 };
 
+
 //---------------------------------------------------------------
 
 void starfield()
@@ -166,14 +143,12 @@ void starfield()
 			s.move();
 			draw_list->AddCircleFilled({ s.x, s.y }, s.r, ImColor(dot_color));
 		}
-
 		for (auto& s : stars)
 		{
 			s.rotate(1.0f);
 		}
 		// Simulation speed
 		std::this_thread::sleep_for(std::chrono::milliseconds(20));
-
 		// End off Frame
 		ImGui::End();
 
@@ -183,9 +158,7 @@ void starfield()
 		// Swap to newly rendered frame
 		glfwSwapBuffers(window);
 	}
-
 	termImgui(window);
-
 }
 
 
