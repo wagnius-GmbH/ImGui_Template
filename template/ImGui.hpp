@@ -24,6 +24,9 @@ class UseImGui
 	// stars for simulations
 	std::vector<Star> stars;
 
+	// starfield simumlation settings ImGui
+	ImGuiWindowFlags window_flags = 0;
+
 public:
 
 	GLFWwindow* window;
@@ -127,7 +130,6 @@ public:
 			stars.emplace_back(Star());
 		}
 		// starfield simumlation settings ImGui
-		ImGuiWindowFlags window_flags = 0;
 		ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_FirstUseEver);
 		ImGui::SetNextWindowSize(ImVec2((float)w, (float)h), ImGuiCond_FirstUseEver);
 		window_flags |= ImGuiWindowFlags_NoMove;
@@ -140,14 +142,16 @@ public:
 
 	void starfield(int delay = 20)
 	{
-
+		/////////////////////////////////
+		// prepare for new Frame
 		glfwPollEvents();
 		// clear content
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		/////////////////////////////////
+		// Frame
 		NewFrame();
-
-
-		ImGui::Begin("##starfield");
+		ImGui::Begin("Simulation", nullptr, window_flags);
 
 		// starfield simumlation calculation
 		ImDrawList* draw_list = ImGui::GetWindowDrawList();
@@ -164,11 +168,11 @@ public:
 		std::this_thread::sleep_for(std::chrono::milliseconds(delay));
 
 		ImGui::End(); // end of content
+
+		/////////////////////////////////
+		// Rendering
 		Render();
-		int display_w, display_h;
-		glfwGetFramebufferSize(window, &display_w, &display_h);
-		glViewport(0, 0, display_w, display_h);
-		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+		
 		glClear(GL_COLOR_BUFFER_BIT);
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
