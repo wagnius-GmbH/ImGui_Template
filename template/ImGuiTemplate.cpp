@@ -31,6 +31,8 @@ int main()
 		myimgui.Update();
 	}
 	myimgui.Shutdown();
+
+	///////////////////////////////////////////////
 	cout << "Shutdown sucessfull";
 	return 0;
 }
