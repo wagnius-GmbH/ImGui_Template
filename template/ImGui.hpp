@@ -154,6 +154,7 @@ public:
 		// Frame
 		NewFrame();
 		ImGui::Begin("Simulation", nullptr, window_flags);
+
 		// Create the menu bar
 		if (ImGui::BeginMainMenuBar()) {
 			// Add a menu
@@ -171,10 +172,10 @@ public:
 
 				ImGui::EndMenu();
 			}
-
 			// You can add more menus here if needed
 			ImGui::EndMainMenuBar();
 		}
+
 		// starfield simumlation calculation
 		ImDrawList* draw_list = ImGui::GetWindowDrawList();
 		for (auto& s : stars)
