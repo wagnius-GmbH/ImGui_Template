@@ -37,7 +37,7 @@ int w = 1000;
 int h = 1000;
 float center_x = (float)w / 2.0f;
 float center_y = (float)h / 2.0f;
-int starsN = 100;
+int starsN = 200;
 
 //---------------------------------------------------------------
 float randomInit()
