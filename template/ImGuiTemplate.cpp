@@ -148,7 +148,7 @@ void test()
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
-		//glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT);
 
 		// New Frame
 		ImGui_ImplOpenGL3_NewFrame();
@@ -201,14 +201,14 @@ void test()
 int main()
 {
 	test();
+
 	// Setup window
-	glfwSetErrorCallback(glfw_error_callback);
 	if (!glfwInit())
 	{
 		cout << "errot in: glfwInit";
 		return 1;
 	}
-	
+
 	// GL 3.3 + GLSL 150
 	const char* glsl_version = "#version 150";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -240,7 +240,7 @@ int main()
 		myimgui.NewFrame();
 		myimgui.Update();
 		myimgui.Render();
-		
+		glfwSwapBuffers(window);
 	}
 	myimgui.Shutdown();
 	cout << "Shutdown sucessfull";

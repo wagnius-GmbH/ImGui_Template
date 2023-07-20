@@ -61,7 +61,6 @@ static void glfw_error_callback(int error, const char* description) {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 
-//static GLFWwindow* window = NULL;
 
 GLFWwindow* initImgui(int win_w = 1280, int win_h = 720, std::string win_title = "LSystem") {
 
