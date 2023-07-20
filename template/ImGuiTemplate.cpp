@@ -16,10 +16,8 @@ int main()
 	UseImGui starfieldGui("Starfield simulation");
 	starfieldGui.initStarfield();
 	// Simulate and show with ImGui
-	while (!glfwWindowShouldClose(starfieldGui.window))
-	{
-		starfieldGui.starfield(20);
-	}
+	starfieldGui.starfield();
+	// stop and shutdown ImGui
 	starfieldGui.Shutdown();
 
 	/*

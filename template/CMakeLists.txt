@@ -1,6 +1,5 @@
 ﻿# CMakeList.txt: CMake-Projekt für "ImGuiTemplate". Schließen Sie die Quelle ein, und definieren Sie
 # projektspezifische Logik hier.
-#
 
 # Fügen Sie der ausführbaren Datei dieses Projekts eine Quelle hinzu.
 add_executable (${PROJECT_NAME} "ImGuiTemplate.cpp"  "header.h" "ImGui.hpp" )
@@ -24,7 +23,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL)
 
 find_package(Eigen3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE Eigen3::Eigen)
-
 
 # Install imgui.ini 
 message("************************************")

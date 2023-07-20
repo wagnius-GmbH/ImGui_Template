@@ -20,11 +20,15 @@ class UseImGui
 	ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.0f, 1.00f);
 	ImVec4 dot_color = ImVec4(255.0f, 255.0f, 255.0f, 1.00f);
 
+	int frameRate;
+
 	// stars for simulations
 	std::vector<Star> stars;
 
 	// starfield simumlation settings ImGui
 	ImGuiWindowFlags window_flags = 0;
+	int delay = 10;
+	float angle = 1.0f;
 
 public:
 
@@ -140,66 +144,80 @@ public:
 
 	}
 
-	void starfield(int delay = 20)
+	void starfield()
 	{
-		/////////////////////////////////
-		// prepare for new Frame
-		glfwPollEvents();
-		// clear content
-		glClear(GL_COLOR_BUFFER_BIT);
+		while (!glfwWindowShouldClose(window))
+		{
+			/////////////////////////////////
+			// prepare for new Frame
+			glfwPollEvents();
+			// clear content
+			glClear(GL_COLOR_BUFFER_BIT);
 
-		int frameRate = ImGui::GetIO().Framerate;
+			int frameRate = (int)ImGui::GetIO().Framerate;
 
-		/////////////////////////////////
-		// Frame
-		NewFrame();
-		ImGui::Begin("Simulation", nullptr, window_flags);
+			/////////////////////////////////
+			// Frame
+			NewFrame();
+			ImGui::Begin("Simulation", nullptr, window_flags);
 
-		// Create the menu bar
-		if (ImGui::BeginMainMenuBar()) {
-			// Add a menu
-			if (ImGui::BeginMenu("File")) {
-				// Add menu items
-				if (ImGui::MenuItem("Open")) {
-					// Handle "Open" action
+			// Create the menu bar
+			if (ImGui::BeginMainMenuBar()) {
+				// Add a menu
+				if (ImGui::BeginMenu("File")) {
+					// Add menu items
+					if (ImGui::MenuItem("Open")) {
+						// Handle "Open" action
+					}
+					if (ImGui::MenuItem("Save")) {
+						// Handle "Save" action
+					}
+					if (ImGui::MenuItem("Exit")) {
+						break;
+					}
+
+					ImGui::EndMenu();
 				}
-				if (ImGui::MenuItem("Save")) {
-					// Handle "Save" action
-				}
-				if (ImGui::MenuItem("Exit")) {
-					// Handle "Exit" action
-				}
-
-				ImGui::EndMenu();
+				// You can add more menus here if needed
+				ImGui::EndMainMenuBar();
 			}
-			// You can add more menus here if needed
-			ImGui::EndMainMenuBar();
+
+			// starfield simumlation calculation
+			ImDrawList* draw_list = ImGui::GetWindowDrawList();
+			for (auto& s : stars)
+			{
+				s.move();
+				draw_list->AddCircleFilled({ s.x, s.y }, s.r, ImColor(dot_color));
+			}
+			for (auto& s : stars)
+			{
+				s.rotate(angle);
+			}
+			// Simulation speed
+			std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+
+			ImGui::End(); // end of content
+
+			ImGui::Begin("Parameter");
+			// Add fields to enter parameters
+			//ImGui::InputInt("Delay [ms]", &delay);
+			//ImGui::InputFloat("Angle", &angle);
+
+			// Add fields to enter parameters
+			ImGui::DragInt("Delay [ms]", &delay, 1, 0, 100);
+			ImGui::DragFloat("Angle [Deg]", &angle, 0.1f, -10.0f, 10.0f);
+
+			// Display some int values
+			ImGui::Text("Frame rate: %d", frameRate);
+			ImGui::End(); // end of content
+
+			/////////////////////////////////
+			// Rendering
+			Render();
+			glClear(GL_COLOR_BUFFER_BIT);
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+			glfwSwapBuffers(window);
 		}
-
-		// starfield simumlation calculation
-		ImDrawList* draw_list = ImGui::GetWindowDrawList();
-		for (auto& s : stars)
-		{
-			s.move();
-			draw_list->AddCircleFilled({ s.x, s.y }, s.r, ImColor(dot_color));
-		}
-		for (auto& s : stars)
-		{
-			s.rotate(1.0f);
-		}
-		// Simulation speed
-		std::this_thread::sleep_for(std::chrono::milliseconds(delay));
-
-		ImGui::End(); // end of content
-
-		/////////////////////////////////
-		// Rendering
-		Render();
-		
-		glClear(GL_COLOR_BUFFER_BIT);
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-		glfwSwapBuffers(window);
 	};
 };
 
